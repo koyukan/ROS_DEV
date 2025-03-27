@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y python3-pip
-          pip3 install -U colcon-common-extensions
+          # Use apt to install colcon instead of pip
+          apt-get install -y python3-colcon-common-extensions python3-colcon-package-information
       
       - name: Build
         run: |
