@@ -22,13 +22,18 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          # Use apt to install colcon instead of pip
           apt-get install -y python3-colcon-common-extensions python3-colcon-package-information
       
       - name: Build
         run: |
-          mkdir -p ros_ws/src
-          cp -r ${{ github.workspace }} ros_ws/src/hello_world_robot
+          # Print directory structure for debugging
+          ls -la
+          
+          # Create workspace and copy code
+          mkdir -p ros_ws/src/hello_world_robot
+          cp -r ./* ros_ws/src/hello_world_robot/
+          
+          # Build package
           cd ros_ws
           . /opt/ros/rolling/setup.sh
           colcon build --packages-select hello_world_robot
