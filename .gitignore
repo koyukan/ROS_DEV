@@ -1,0 +1,84 @@
+## ROS 2 build artifacts
+build/
+install/
+log/
+
+# Colcon generated files
+.colcon_cd_root
+COLCON_IGNORE
+
+# Compiled Object files
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Eclipse
+.project
+.cproject
+.settings/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+CMakeScripts/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+_deps/
+
+# ROS 1/2 specific
+.catkin_workspace
+.catkin_tools/
+
+# Logs
+*.log
+core.*
+
+# System Files
+.DS_Store
+Thumbs.db
+.directory
+
+# Temporary files
+*~
+*.swp
+*.swo

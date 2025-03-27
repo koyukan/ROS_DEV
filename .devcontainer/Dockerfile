@@ -17,7 +17,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y python3-pip
+RUN echo "source /opt/ros/rolling/setup.bash" >> /home/$USERNAME/.bashrc
+
 ENV SHELL /bin/bash
+
 
 # ********************************************************
 # * Anything else you want to do like clean up goes here *
