@@ -29,18 +29,24 @@ jobs:
           # Print directory structure for debugging
           ls -la
           
-          # Create workspace and copy code
-          mkdir -p ros_ws/src/hello_world_robot
-          cp -r ./* ros_ws/src/hello_world_robot/
+          # Create workspace
+          mkdir -p /tmp/ros_ws/src/hello_world_robot
+          
+          # Copy necessary files excluding .git and other unnecessary files
+          cp -r .devcontainer /tmp/ros_ws/src/hello_world_robot/
+          cp -r include /tmp/ros_ws/src/hello_world_robot/ || true
+          cp -r src /tmp/ros_ws/src/hello_world_robot/
+          cp -r test /tmp/ros_ws/src/hello_world_robot/ || true
+          cp CMakeLists.txt package.xml /tmp/ros_ws/src/hello_world_robot/ || true
           
           # Build package
-          cd ros_ws
+          cd /tmp/ros_ws
           . /opt/ros/rolling/setup.sh
           colcon build --packages-select hello_world_robot
       
       - name: Test
         run: |
-          cd ros_ws
+          cd /tmp/ros_ws
           . /opt/ros/rolling/setup.sh
           . install/setup.sh
           colcon test --packages-select hello_world_robot --event-handlers console_direct+
@@ -50,4 +56,4 @@ jobs:
         if: always()
         with:
           name: test-results
-          path: ros_ws/build/hello_world_robot/test_results
+          path: /tmp/ros_ws/build/hello_world_robot/test_results
