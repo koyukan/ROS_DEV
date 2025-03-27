@@ -1,0 +1,48 @@
+name: ROS 2 CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    container:
+      image: ros:rolling
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup ROS 2
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: rolling
+      
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y python3-pip
+          pip3 install -U colcon-common-extensions
+      
+      - name: Build
+        run: |
+          mkdir -p ros_ws/src
+          cp -r ${{ github.workspace }} ros_ws/src/hello_world_robot
+          cd ros_ws
+          . /opt/ros/rolling/setup.sh
+          colcon build --packages-select hello_world_robot
+      
+      - name: Test
+        run: |
+          cd ros_ws
+          . /opt/ros/rolling/setup.sh
+          . install/setup.sh
+          colcon test --packages-select hello_world_robot --event-handlers console_direct+
+      
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results
+          path: ros_ws/build/hello_world_robot/test_results
