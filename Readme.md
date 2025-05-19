@@ -62,7 +62,7 @@ The nodes communicate over the `hello_topic` topic using standard `std_msgs/Stri
 ### Build the Package
 
 ```bash
-# Inside the dev container
+# Inside the dev container (small change)
 cd /home/ws
 colcon build --packages-select hello_world_robot
 source install/setup.bash
